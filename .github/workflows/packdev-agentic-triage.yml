@@ -1,0 +1,30 @@
+name: packdev agentic triage (experimental)
+
+# pull_request_target, not pull_request: workflows triggered by
+# Dependabot's pull_request event run without repository secrets (a
+# platform restriction, Dependabot PRs are treated like fork PRs for
+# secret access) — this job needs the ZAI_API_KEY secret, so it needs
+# pull_request_target instead. The actor gate below still restricts this
+# to dependabot[bot]/renovate[bot] only. Kept in its own workflow file
+# rather than added to packdev-compat.yml because a workflow's trigger
+# type is file-wide, not job-wide, and the working pull_request-triggered
+# compat job didn't need to change.
+on:
+  pull_request_target:
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  agentic-triage:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dionmaicon/packdev-agents/agentic-triage-action@main
+        with:
+          model-provider: openai-compatible
+          openai-compatible-base-url: "https://api.z.ai/api/coding/paas/v4"
+          openai-compatible-model: "glm-5.3-flash"
+          openai-compatible-api-key: ${{ secrets.ZAI_API_KEY }}
