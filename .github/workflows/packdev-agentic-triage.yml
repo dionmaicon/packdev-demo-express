@@ -21,6 +21,11 @@ jobs:
   agentic-triage:
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
+    # Hard cap on total CI cost — a stuck or slow-but-never-quite-timing-out
+    # provider otherwise keeps billing minutes indefinitely. Each individual
+    # model API request also has its own ~90s fail-fast timeout, but that's
+    # not the same guarantee as this.
+    timeout-minutes: 5
     steps:
       - uses: dionmaicon/packdev-agents/agentic-triage-action@main
         with:
@@ -28,3 +33,8 @@ jobs:
           openai-compatible-base-url: "https://api.z.ai/api/coding/paas/v4"
           openai-compatible-model: "glm-5.3-flash"
           openai-compatible-api-key: ${{ secrets.ZAI_API_KEY }}
+          # glm-5.3-flash spends a large, invisible reasoning budget before
+          # visible output — the 2000-token default got cut off with zero
+          # content on a genuinely incompatible bump; 8000 is this action's
+          # own new default, set explicitly here for clarity.
+          max-output-tokens: "8000"
