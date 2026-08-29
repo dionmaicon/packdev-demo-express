@@ -1,3 +1,6 @@
+# Config touched to trigger an immediate Dependabot manifest re-scan
+# (branches for the previous PR batch were deleted after a testing mishap;
+# this repo is otherwise unchanged).
 version: 2
 updates:
   - package-ecosystem: "npm"
