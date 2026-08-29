@@ -20,3 +20,14 @@ jobs:
           # members (packages/api, packages/worker) each get their own
           # Dependabot PR touching a different file; auto-discovery finds
           # whichever one actually changed.
+
+  agentic-triage:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dionmaicon/packdev-agents/agentic-triage-action@main
+        with:
+          model-provider: openai-compatible
+          openai-compatible-base-url: "https://api.z.ai/api/coding/paas/v4"
+          openai-compatible-model: "glm-5.3-flash"
+          openai-compatible-api-key: ${{ secrets.ZAI_API_KEY }}
