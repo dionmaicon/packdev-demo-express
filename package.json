@@ -1,0 +1,9 @@
+{
+  "name": "packdev-demo-repo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Live Dependabot target for packdev-agents — a small real npm-workspaces monorepo.",
+  "workspaces": [
+    "packages/*"
+  ]
+}
