@@ -1,0 +1,14 @@
+{
+  "name": "@packdev-demo/worker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A second, independently-Dependabot-tracked app in the same monorepo — exercises packdev-agents' auto-discovery of which workspace member actually changed.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "4.18.2"
+  }
+}

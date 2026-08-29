@@ -4,3 +4,7 @@ updates:
     directory: "/packages/api"
     schedule:
       interval: "daily"
+  - package-ecosystem: "npm"
+    directory: "/packages/worker"
+    schedule:
+      interval: "daily"
