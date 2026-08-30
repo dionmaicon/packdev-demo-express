@@ -35,7 +35,7 @@ test("GET /health returns ok", async () => {
   try {
     const { port } = server.address();
     const res = await request(port, { path: "/health", method: "GET" });
-    assert.equal(res.statusCode, 200);
+    assert.equal(res.statusCode, 999);
     assert.deepEqual(res.body, { status: "ok" });
   } finally {
     server.close();
