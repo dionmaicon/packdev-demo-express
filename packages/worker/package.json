@@ -9,6 +9,6 @@
     "test": "node -e \"console.error('harness deliberately broken for a test'); process.exit(1)\""
   },
   "dependencies": {
-    "express": "4.18.2"
+    "express": "4.19.0"
   }
 }
