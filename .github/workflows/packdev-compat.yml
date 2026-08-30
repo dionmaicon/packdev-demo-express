@@ -10,17 +10,12 @@ permissions:
 
 jobs:
   compat:
-    # TEMPORARY: dionmaicon added for manual known-scenario test PRs (no
-    # waiting on Dependabot's own version picks). Revert to just
-    # 'dependabot[bot]' after testing.
-    if: github.actor == 'dependabot[bot]' || github.actor == 'dionmaicon'
+    if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: dionmaicon/packdev-agents@main
         with:
           test-command: "npm test"
-          # TEMPORARY, same reason as the if: above.
-          allowed-actors: "dependabot[bot],renovate[bot],dionmaicon"
           # No package-json-path — two independently-tracked workspace
           # members (packages/api, packages/worker) each get their own
           # Dependabot PR touching a different file; auto-discovery finds
