@@ -91,28 +91,3 @@ test("GET /notifications/:id returns 404 for an unknown id", async () => {
     server.close();
   }
 });
-
-test("DELETE /notifications/:id removes a real notification", async () => {
-  const server = await listen(createApp());
-  try {
-    const { port } = server.address();
-    const created = await request(
-      port,
-      { path: "/notify", method: "POST" },
-      { to: "alice", message: "hello" },
-    );
-    const deleted = await request(port, {
-      path: `/notifications/${created.body.id}`,
-      method: "DELETE",
-    });
-    assert.equal(deleted.statusCode, 204);
-
-    const fetched = await request(port, {
-      path: `/notifications/${created.body.id}`,
-      method: "GET",
-    });
-    assert.equal(fetched.statusCode, 404);
-  } finally {
-    server.close();
-  }
-});

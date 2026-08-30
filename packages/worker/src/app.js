@@ -32,14 +32,6 @@ function createApp() {
     res.json(notification);
   });
 
-  // Uses Express 4's deprecated `app.del` alias for `app.delete` — kept on
-  // purpose (not app.delete) as a real, load-bearing dependency on an API
-  // Express 5 removes entirely, for packdev-agents' own live-testing needs.
-  app.del("/notifications/:id", (req, res) => {
-    const existed = notifications.delete(req.params.id);
-    res.status(existed ? 204 : 404).end();
-  });
-
   return app;
 }
 
